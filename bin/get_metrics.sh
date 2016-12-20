@@ -5,7 +5,6 @@ default_IFS=$IFS
 #$1 positions file; $2 output file; $3 comma-delimited metrics
 
 all_bams=`ls BAM/*bam`
-
 fields=$3
 IFS="," #change separator to use fields as a list to run a for loop on it
 
@@ -14,18 +13,18 @@ for f in $fields; do echo -e "$(cat $2)\t$f" > $2 ; done #append fields to colum
 IFS=${default_IFS} #default IFS
 
 while read line; do
-          mySM=` echo $line | awk '{print $3}' `
+          mySM=` echo $line | awk '{print $4}' `
           for mybam in $all_bams
           do
             current_SM=`samtools view -H $mybam | grep '^@RG' | sed "s/.*SM:\([^\t]*\).*/\1/g" | uniq`
-	    filename="${mybam##*/}" && filename="${filename%.*}"
+	          filename="${mybam##*/}" && filename="${filename%.*}"
             if [[ $current_SM  == $mySM || $filename == $mySM ]] #search the bam corresponding to the sm in current input file line
             then
               output_line=$line
               #output the list of reads at the position we want, into tmp1
-              pos=` echo $line | awk -F' ' '{print$1":"$2"-"$2}' `
+              pos=` echo $line | awk -F' ' '{print$1":"$2"-"$3}' `
               samtools view $mybam $pos > tmp1
-	      IFS=","
+	            IFS=","
               for myfield in $fields
               do
                   if grep -q $myfield tmp1; then
