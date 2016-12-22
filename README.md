@@ -24,11 +24,10 @@ Options:
 
 | Parameter | Default value | Description |
 |-----------|--------------:|-------------|
-|-----------|---required---:|-------------|
+|	|	required	|	|
 | bam_folder    |            - | Folder containing BAM for each sample you want metrics on position |
 | input_positions | - |  File containing position-sample, in line-form "chr pos sample" |
-|-----------|---optional---:|-------------|
-
+|	|	optional	|	|
 | nb_chunks | 1 | Value defining the number of parallelized processed chunks |
 | output_file | bametrics_output.txt | File name of the output |
 | out_folder | . | Output directory |
