@@ -13,8 +13,8 @@ params.metrics = "AS"
 params.nb_chunks = 1
 params.out_folder = "."
 
-bam = Channel.fromPath( params.bam_folder+'/*.bam' ).toList()
-bai = Channel.fromPath( params.bam_folder+'/*.bam.bai' ).toList()
+bam = Channel.fromPath( params.bam_folder+'/*.bam' ).collect()
+bai = Channel.fromPath( params.bam_folder+'/*.bam.bai' ).collect()
 input_positions = file(params.input_positions)
 
 if (params.help) {
